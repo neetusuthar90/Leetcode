@@ -17,8 +17,8 @@ class Solution{
         int n = a^b;
         int res;
         while(n){
-            n = n&n-1;
-            res++;
+            res += n&1;
+            n = n>>1;
         }
         return res;
     }
