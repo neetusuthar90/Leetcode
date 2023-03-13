@@ -29,7 +29,7 @@ class Solution{
            if(s.empty()){
                return -1;
            }
-           return ss.top();
+           return minEle;
            
        }
        
@@ -39,21 +39,38 @@ class Solution{
            if(s.empty()){
                return -1;
            }
-           int ans = s.top();
-           s.pop();
-           if(ss.top() == ans){
-               ss.pop();
+           else{
+               int ans;
+               if(s.top()>=minEle){
+                   ans = s.top();
+                   s.pop();
+               }
+               else if(s.top() < minEle){
+                   s.top();
+                   ans = minEle;
+                   minEle = 2*minEle - s.top();
+                   s.pop();
+               }
+               return ans;
            }
-           return ans;
        }
        
        /*push element x into the stack*/
        void push(int x){
            
            //Write your code here
-           s.push(x);
-           if(ss.empty() || ss.top() >= x){
-               ss.push(x);
+           if(s.empty()){
+               minEle = x;
+               s.push(x);
+           }
+           else{
+               if(x>=minEle){
+                   s.push(x);
+               }
+               else{
+                   s.push(2*x-minEle);
+                   minEle = x;
+               }
            }
        }
 };
