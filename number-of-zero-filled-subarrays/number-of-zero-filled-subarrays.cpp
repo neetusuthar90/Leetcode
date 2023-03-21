@@ -13,7 +13,7 @@ public:
                 m = 0;
             }
         }
-        if(m>0){
+        if(m > 0){
             totalCount += m*(m+1)/2;
         }
         return totalCount;
