@@ -18,12 +18,14 @@ public:
         }
 
         vector<bool> vis(n,false);
-        long long ans = ((long long) n*(n-1))/2;
+        long long ans = 0;
+        int total = 0;
         for(int i = 0; i < n; i++){
             if(vis[i] == false){
                 long long count = 0;
                 dfs(adj,vis,count,i);
-                ans -= count*(count-1)/2;
+                ans += total*count;
+                total += count;
             }
         }
         return ans;
