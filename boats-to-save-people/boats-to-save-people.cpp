@@ -7,11 +7,10 @@ public:
         int high = n-1;
         int ans = 0;
         while(low <= high){
-            ans++;
-
             if(people[low]+people[high] <= limit){
                 low++;
             }
+            ans++;
             high--;
         }
         return ans;
