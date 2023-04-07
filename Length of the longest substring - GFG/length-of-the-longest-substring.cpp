@@ -13,14 +13,15 @@ class Solution{
             return 0;
         }
         int maxlen = 0;
-        vector<int> mpp(256,-1);
+        vector<int> mpp(26,-1);
         int left = 0;
         int right = 0;
         while(right<n){
-            if(mpp[S[right]] != -1){
-                left = max(mpp[S[right]]+1, left);
+            int idx = S[right] - 'a';
+            if(mpp[idx] != -1){
+                left = max(mpp[idx]+1, left);
             }
-            mpp[S[right]] = right;
+            mpp[idx] = right;
             maxlen = max(maxlen,right-left+1);
             right++;
         }
