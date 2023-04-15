@@ -12,10 +12,12 @@ class Solution
         // code here
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
         vector<int> vis(V,0);
+        
         pq.push({0,0});
         int sum = 0;
-        
+        // O(E)
         while(!pq.empty()){
+            //O(log E)
             auto it = pq.top();
             pq.pop();
             int node = it.second;
@@ -23,8 +25,10 @@ class Solution
             if(vis[node]==1) continue;
             //add it to mst
             vis[node] = 1;
+            //If you need to find out MST then create a array and push here
             sum += wt;
             
+            // O(E. log E)
             for(auto nbd:adj[node]){
                 int adjNode = nbd[0];
                 int edW = nbd[1];
@@ -35,6 +39,8 @@ class Solution
         }
         return sum;
     }
+    
+    // Time complexity: O(E.log E)+ O(E.logE) = O(E.log E)
 };
 
 //{ Driver Code Starts.
