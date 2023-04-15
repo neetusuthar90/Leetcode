@@ -47,6 +47,7 @@ class Solution
     {
         // code here
         vector<pair<int, pair<int,int>>> edges;
+        //O(N+E)
         for(int i = 0; i < V; i++){
             for(auto it:adj[i]){
                 int adjNode = it[0];
@@ -58,11 +59,12 @@ class Solution
                 // Disjoint set data structre and that will be take care of it
             }
         }
-        
+        //O(E.log(E))
         sort(edges.begin(), edges.end());
-        DisjointSet ds(V);
         
+        DisjointSet ds(V);
         int mstwt = 0;
+        //O((N+E).4*alpha)
         for(auto it:edges){
             int wt = it.first;
             int u = it.second.first;
@@ -75,6 +77,9 @@ class Solution
         }
         return mstwt;
     }
+    
+    //Time Complexity: O(E.log(V))
+    //Space Complexity: O(E+V)
 };
 
 
