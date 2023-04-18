@@ -11,14 +11,6 @@ public:
             i++;
             j++;
         }
-        while(i<n){
-            op += word1[i];
-            i++;
-        }
-        while(j<m){
-            op += word2[j];
-            j++;
-        }
-        return op;
+        return op+word1.substr(i)+word2.substr(j);
     }
 };
