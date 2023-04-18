@@ -7,7 +7,7 @@ public:
         int j = 0;
         string op = "";
         while(i<n && j < m){
-            op = op + word1[i]+ word2[j];
+            op += string() + word1[i]+ word2[j];
             i++;
             j++;
         }
