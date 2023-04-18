@@ -7,10 +7,14 @@ public:
         int j = 0;
         string op = "";
         while(i<n && j < m){
-            op += string() + word1[i]+ word2[j];
-            i++;
-            j++;
+            op = op + word1[i++]+ word2[j++];
         }
-        return op+word1.substr(i)+word2.substr(j);
+        while(i<n){
+            op += word1[i++];
+        }
+        while(j<m){
+            op += word2[j++];
+        }
+        return op;
     }
 };
