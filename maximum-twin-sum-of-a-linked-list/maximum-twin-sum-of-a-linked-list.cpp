@@ -11,19 +11,29 @@
 class Solution {
 public:
     int pairSum(ListNode* head) {
-        vector<int> arr;
-        ListNode* temp = head;
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        while(temp != NULL){
-            arr.push_back(temp->val);
-            temp = temp->next;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
         }
 
-        int n = arr.size();
-        int m = (n/2)-1;
-        int maxTwinSum = -1;
-        for(int i = 0; i <= m; i++){
-            maxTwinSum = max(maxTwinSum, arr[i]+arr[n-i-1]);
+        ListNode* prev = NULL;
+        ListNode* nextNode;
+
+        while(slow){
+            nextNode = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
+
+        int maxTwinSum = 0;
+        while(prev){
+            maxTwinSum = max(maxTwinSum, head->val + prev->val);
+            head = head->next;
+            prev = prev->next;
         }
         return maxTwinSum;
     }
