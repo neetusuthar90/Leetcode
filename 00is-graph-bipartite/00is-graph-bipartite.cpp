@@ -1,34 +1,26 @@
 class Solution {
 public:
-    //BFS TRAVERSAL
+    //DFS Traversal
     bool isBipartite(vector<vector<int>>& graph) {
         int n = graph.size();
         vector<int> colour(n,0);
-        
 
-        for(int node=0; node<n; node++){
-            if(colour[node]!=0) continue;
+        for(int node = 0; node<n; node++){
+            if(colour[node] == 0 && !DFS(graph, colour, node, 1)){
+                return false;
+            }
+        }
+        return true;
+    }
 
-            queue<int> q;
-            colour[node] = 1;
-            q.push(node);
-
-            while(!q.empty()){
-                int u = q.front();
-                q.pop();
-
-                for(auto v:graph[u]){
-                    if(colour[v]==0){
-                        //Not coloured yet
-                        colour[v] = -colour[u];
-                        q.push(v);
-                    }
-                    else if(colour[v] == colour[u]){
-                        // OR colour[v] != -colour[u]
-                        //Coloured is not as expected
-                        return false;
-                    }
-                }
+    bool DFS(vector<vector<int>>& graph, vector<int> &colour, int node, int c){
+        if(colour[node] != 0){
+            return (colour[node]==c);
+        }
+        colour[node] = c;
+        for(auto nbd:graph[node]){
+            if(!DFS(graph,colour,nbd,-c)){
+                return false;
             }
         }
         return true;
