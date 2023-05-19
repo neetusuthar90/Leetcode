@@ -129,21 +129,26 @@ struct Node
 */
 
 //Function to return a list containing the preorder traversal of the tree.
-Node* helper(Node* root, vector<int> &ans){
-    if(root == NULL){
-        return root;
-    }
-    ans.push_back(root->data);
-    root->left = helper(root->left, ans);
-    root->right = helper(root->right, ans);
-    return root;
-}
 vector <int> preorder(Node* root)
 {
-  // Your code here
-  vector <int> ans;
-  root = helper(root, ans);
-  return ans;
-  
+    // Your code here
+    vector<int> res;
+    if(root == NULL) return res;
+    
+    stack<Node*> st;
+    st.push(root);
+    
+    while(!st.empty()){
+        root = st.top();
+        st.pop();
+        
+        res.push_back(root->data);
+        if(root->right != NULL){
+            st.push(root->right);
+        }
+        if(root->left != NULL){
+            st.push(root->left);
+        }
+    }
+    return res;
 }
-
