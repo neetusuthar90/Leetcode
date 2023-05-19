@@ -14,13 +14,10 @@ class Solution {
   public:
     int countNodes(int i) {
         // your code here
-        int n = i-1;
-        int ans = 1;
-        while(n>0){
-            ans = ans*2;
-            n--;
+        if(i==1){
+            return 1;
         }
-        return ans;
+        return pow(2,i-1);
     }
 };
 
