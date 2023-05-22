@@ -10,22 +10,19 @@ public:
             mp[it]++;
         }
 
-        vector<pair<int,int>> vec;
+        priority_queue<pair<int, int>> pq;
 
-        for(auto& it:mp){
-            vec.push_back(it);
+        for(auto it:mp){
+            pq.push(make_pair(it.second, it.first));
         }
 
-        std::sort(vec.begin(), vec.end(), cmp);
-        vector<int> res;
-
-        int j = 0;
-        while(k > 0){
-            res.push_back(vec[j].first);
-            j++;
+        vector<int> ans;
+        while(k>0){
+            ans.push_back(pq.top().second);
+            pq.pop();
             k--;
         }
-        return res;
+        return ans;
     }
 
 };
