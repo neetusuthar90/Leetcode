@@ -96,34 +96,41 @@ struct Node {
 };*/
 class Solution{
     public:
-    vector<int> postOrder(Node* root) {
-        // code her
-        vector<int> ans;
-        if(root == NULL){
-            return ans;
-        }
-        stack<Node*> s1,s2;
-        s1.push(root);
+    vector<int> postOrder(Node* node) {
+        // code here
+        vector<int> pre,in,post;
+        if(node == NULL) return post;
+        stack<pair<Node*, int>> st;
+        st.push({node,1});
         
-        while(!s1.empty()){
-            root = s1.top();
-            s1.pop();
+        while(!st.empty()){
+            auto it = st.top();
+            st.pop();
             
-            s2.push(root);
-            if(root->left != NULL){
-                s1.push(root->left);
+            if(it.second == 1){
+                pre.push_back(it.first->data);
+                it.second++;
+                st.push(it);
+                
+                if(it.first->left != NULL){
+                    st.push({it.first->left, 1});
+                }
             }
-            if(root->right != NULL){
-                s1.push(root->right);
+            else if(it.second == 2){
+                in.push_back(it.first->data);
+                it.second++;
+                st.push(it);
+                
+                if(it.first->right != NULL){
+                    st.push({it.first->right, 1});
+                }
+            }
+            else if(it.second == 3){
+                post.push_back(it.first->data);
             }
         }
         
-        while(!s2.empty()){
-            ans.push_back(s2.top()->data);
-            s2.pop();
-        }
-        
-        return ans;
+        return post;
     }
 };
 
