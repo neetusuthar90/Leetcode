@@ -105,7 +105,26 @@ class Solution{
             return 0;
         }
         
-        return max(height(node->left), height(node->right))+1;
+        queue<Node*> q;
+        q.push(node);
+        int level = 0;
+        
+        while(!q.empty()){
+            int size = q.size();
+            
+            while(size-- > 0){
+                node = q.front();
+                q.pop();
+                if(node->left != NULL){
+                    q.push(node->left);
+                }
+                if(node->right != NULL){
+                    q.push(node->right);
+                }
+            }
+            level++;
+        }
+        return level;
     }
 };
 
