@@ -35,35 +35,36 @@ class Solution
     //Function to sort a linked list of 0s, 1s and 2s.
     Node* segregate(Node *head) {
         
-        // Add code here
-        int count0 = 0, count1 = 0, count2 = 0;
+        // Add code her
         Node* temp = head;
-        
+        vector<int> arr;
         while(temp != NULL){
-            if(temp->data == 0){
-                count0++;
-            }
-            else if(temp->data == 1){
-                count1++;
-            }
-            else if(temp->data == 2){
-                count2++;
-            }
+            arr.push_back(temp->data);
             temp = temp->next;
+        }
+        
+        int low = 0;
+        int mid = 0;
+        int high = arr.size()-1;
+        
+        while(mid <= high){
+            if(arr[mid]==0){
+                swap(arr[low], arr[mid]);
+                low++;
+                mid++;
+            }
+            else if(arr[mid]==1){
+                mid++;
+            }
+            else{
+                swap(arr[high], arr[mid]);
+                high--;
+            }
         }
         
         temp = head;
-        for(int i = 0; i < count0; i++){
-            temp->data = 0;
-            temp = temp->next;
-        }
-        for(int i = 0; i < count1; i++){
-            temp->data = 1;
-            temp = temp->next;
-        }
-        
-        for(int i = 0; i < count2; i++){
-            temp->data = 2;
+        for(int i = 0; i < arr.size() && temp != NULL ; i++){
+            temp->data = arr[i];
             temp = temp->next;
         }
         
