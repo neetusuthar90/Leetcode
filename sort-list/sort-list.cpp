@@ -10,24 +10,80 @@
  */
 class Solution {
 public:
+
+    ListNode* findMid(ListNode* head){
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+
+        while(fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        return slow;
+    }
+
+    ListNode* merge(ListNode* left, ListNode* right){
+        
+        if(left == NULL)
+            return right;
+
+        if(right == NULL)
+            return left;
+
+        ListNode* ans = new ListNode(-1);
+        ListNode* temp = ans;
+
+        while(left != NULL && right != NULL){
+            if(left->val < right-> val){
+
+                temp->next = left;
+                temp = left;
+                left = left->next;
+            }
+            else{
+
+                temp->next = right;
+                temp = right;
+                right = right->next;
+            }
+        }
+
+        while(left != NULL){
+            temp->next = left;
+            temp = left;
+            left = left->next;
+        }
+
+        while(right != NULL){
+            temp->next = right;
+            temp = right;
+            right = right->next;
+        }
+
+        ans = ans->next;
+        return ans;
+    }
+
     ListNode* sortList(ListNode* head) {
         if(head == NULL || head->next == NULL){
             return head;
         }
-        vector<int> arr;
-        ListNode* temp = head;
-        while(temp != NULL){
-            arr.push_back(temp->val);
-            temp = temp->next;
-        }
+        
+        //break Linked list into 2 halves
+        ListNode* mid = findMid(head);
 
-        sort(arr.begin(), arr.end());
-        temp = head;
-        for(int i = 0; i < arr.size() && temp != NULL; i++){
-            temp->val = arr[i];
-            temp = temp->next;
-        }
+        ListNode* left = head;
+        ListNode* right = mid->next;
+        mid->next = NULL;
 
-        return head;
+        // Recusrion on both the halves
+        left = sortList(left);
+        right = sortList(right);
+
+        // Merge two sorted LL
+        ListNode* result = merge(left, right);
+
+        return result;
     }
 };
