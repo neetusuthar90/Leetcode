@@ -8,37 +8,19 @@ public:
     }
     
     bool addCar(int carType) {
-        int ans = true;
-        switch(carType){
-            case 1:
-                //big space
-                if(big == 0){
-                    ans = false;
-                }
-                else{
-                    big--;
-                }
-                break;
-            case 2:
-                //medium space
-                if(medium == 0){
-                    ans = false;
-                }
-                else{
-                    medium--;
-                }
-                break;
-            case 3:
-                //small space
-                if(small == 0){
-                    ans = false;
-                }
-                else{
-                    small--;
-                }
-                break;
+        if(carType == 1 && big == 0 || carType == 2 && medium == 0 || carType == 3 && small == 0){
+            return false;
         }
-        return ans;
+        else if(carType == 1){
+            big--;
+        }
+        else if(carType == 2){
+            medium--;
+        }
+        else if(carType == 3){
+            small--;
+        }
+        return true;
     }
 };
 
