@@ -4,7 +4,7 @@ public:
     int size;
 
     MyHashSet() {
-        size = 1e6 + 1;
+        size = 100;
         arr.resize(size);    
     }
     
