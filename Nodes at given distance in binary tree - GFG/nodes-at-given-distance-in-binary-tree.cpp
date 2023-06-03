@@ -139,7 +139,7 @@ public:
             while(size--){
                 Node* temp = q.front();
                 q.pop();
-                if(parent[temp] && !visited[parent[temp]]){
+                if(parent[temp] != NULL && !visited[parent[temp]]){
                     q.push(parent[temp]);
                 }
                 if(temp->left && !visited[temp->left]){
