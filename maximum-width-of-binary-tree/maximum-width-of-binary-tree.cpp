@@ -14,30 +14,28 @@ public:
         while(!q.empty())
         {
             int cnt = q.size();
-            // start is the index of root node for first level
-            int start = q.front().second;
-            int end = q.back().second;
-            
-            res = max(res,end-start + 1);
-            
+            int curmin = q.front().second; //Min in current level
+            int start, end;
             for(int i = 0; i <cnt; ++i)
             {
-                pair<TreeNode*, int> p = q.front();
-                // we will use it while inserting it children
-                // left child will be 2 * idx + 1;
-                // right chils will be 2 * idx + 2;
-                int idx = p.second - start;
-                
+                int idx = q.front().second - curmin;
+                TreeNode* temp = q.front().first;
                 q.pop();
-                
+                if(i == 0){
+                    start = idx;
+                }
+                if(i == cnt-1){
+                    end = idx;
+                }
                 // if  left child exist
-                if(p.first->left != NULL)
-                    q.push({p.first->left, (long long)2 * idx + 1});
+                if(temp->left != NULL)
+                    q.push({temp->left, (long long)2 * idx + 1});
                 
                 // if right child exist
-                if(p.first->right != NULL)
-                    q.push({p.first->right, (long long) 2 * idx + 2});
+                if(temp->right != NULL)
+                    q.push({temp->right, (long long) 2 * idx + 2});
             }
+            res = max(res,end-start+1);
         }
         
         return res;
