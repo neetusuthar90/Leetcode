@@ -123,29 +123,34 @@ class Solution {
             }
         }
         
-        int count = -1;
+        int count = 0;
         q.push(tar);
         visited[tar] = true;
         while(!q.empty()){
             int size = q.size();
+            int flag = 0;
             while(size--){
                 Node* temp = q.front();
                 q.pop();
-                
                 if(parent[temp] != NULL && !visited[parent[temp]]){
+                    flag = 1;
                     q.push(parent[temp]);
                     visited[parent[temp]] = true;
                 }
                 if(temp->left != NULL & !visited[temp->left]){
+                    flag = 1;
                     q.push(temp->left);
                     visited[temp->left] = true;
                 }
                 if(temp->right != NULL & !visited[temp->right]){
+                    flag = 1;
                     q.push(temp->right);
                     visited[temp->right] = true;
                 }
             }
-            count++;
+            if(flag == 1){
+                count++;
+            }
         }
         
         return count;
