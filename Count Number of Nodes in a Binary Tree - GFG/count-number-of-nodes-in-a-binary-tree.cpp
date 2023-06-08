@@ -32,20 +32,13 @@ class Solution {
         if(root == NULL){
             return 0;
         }
-        queue<Node*> q;
-        q.push(root);
-        int count =0;
-        while(!q.empty()){
-            int size = q.size();
-            count += size;
-            while(size--){
-                root = q.front();
-                q.pop();
-                if(root->left) q.push(root->left);
-                if(root->right) q.push(root->right);
-            }
+        if(root->left == NULL && root->right == NULL){
+            return 1;
         }
-        return count;
+        int ln = countNodes(root->left);
+        int rn = countNodes(root->right);
+        
+        return ln+rn+1;
     }
 };
 
