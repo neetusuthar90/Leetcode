@@ -65,36 +65,36 @@ struct Node
 };*/
 
 //Function to return a tree created from postorder and inoreder traversals.
-Node* contructTree(int in[], int post[], int inStart, int inEnd, int postStart, int postEnd, map<int,int> &mp){
+Node* contructTree(int in[], int post[], int inStart, int inEnd, int postStart, int postEnd){
     if(inStart > inEnd || postStart > postEnd){
         return NULL;
     }
     
     Node* root = new Node(post[postEnd]);
-    /*int rIdx;
+    int rIdx;
     for(int i = inStart; i <= inEnd; i++){
         if (root->data == in[i]){
             rIdx = i;
             break;
         }
     }
-    */
-    int rIdx = mp[post[postEnd]];
+    //int rIdx = mp[post[postEnd]];
     int nElem = rIdx - inStart;
     
-    root->left = contructTree(in, post, inStart, rIdx-1, postStart, postStart+nElem-1,mp);
-    root->right = contructTree(in, post, rIdx+1, inEnd, postStart+nElem, postEnd-1,mp);
+    root->left = contructTree(in, post, inStart, rIdx-1, postStart, postStart+nElem-1);
+    root->right = contructTree(in, post, rIdx+1, inEnd, postStart+nElem, postEnd-1);
     
     return root;
 }
 
 Node *buildTree(int in[], int post[], int n) {
     // Your code here
-    map<int,int> mp;
+    /*map<int,int> mp;
     for(int i =0; i < n; i++){
         mp[in[i]] = i;
     }
     Node* root = contructTree(in, post, 0, n-1, 0, n-1,mp);
-    //Node* root = contructTree(in, post, 0, n-1, 0, n-1);
+    */
+    Node* root = contructTree(in, post, 0, n-1, 0, n-1);
     return root;
 }
