@@ -101,22 +101,28 @@ class Solution
     public:
     void flatten(Node *root)
     {
-        //code here
         if(root == NULL){
             return;
         }
         
-        flatten(root->left);
-        flatten(root->right);
+        stack<Node*> st;
+        st.push(root);
         
-        if(root->left != NULL){
-            Node* temp = root->right;
-            root->right = root->left;
-            root->left = NULL;
-            while(root->right != NULL){
-                root = root->right;
+        while(!st.empty()){
+            Node* cur = st.top();
+            st.pop();
+            
+            if(cur->right){
+                st.push(cur->right);
             }
-            root->right = temp;
+            if(cur->left){
+                st.push(cur->left);
+            }
+            
+            if(!st.empty()){
+                cur->right = st.top();
+            }
+            cur->left = NULL;
         }
     }
 };
