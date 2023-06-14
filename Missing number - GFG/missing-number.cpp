@@ -26,16 +26,14 @@ int main()
 int missingNumber(int A[], int N)
 {
     // Your code goes here
-    vector<int> map(N+1,0);
-    for(int i = 0; i < N-1; i++){
-        map[A[i]]++;;
-    }
-    int ans;
+    long long sum1 = 0;
+    long long sum2 = 0;
     for(int i = 1; i <= N; i++){
-        if(map[i] == 0){
-            ans = i;
-            break;
-        }
+        sum1 += i;
     }
-    return ans;
+    
+    for(int i = 0; i < N-1; i++){
+        sum2 += A[i];
+    }
+    return sum1-sum2;
 }
