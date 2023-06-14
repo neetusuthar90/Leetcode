@@ -13,15 +13,18 @@ class Solution
 	public:
 		string is_palindrome(int n)
 		{
-		    // Code here.
-		    string str = to_string(n);
-		    reverse(str.begin(),str.end());
-		    if(to_string(n) == str){
-		        cout << "Yes";
+		    int reverse = 0;
+		    int num = n;
+		    while(n!=0){
+		        int digit = n%10;
+		        reverse = (reverse*10) + digit;
+		        n = n/10;
 		    }
-		    else{
-		        cout << "No";
+		    
+		    if(num == reverse){
+		        return "Yes";
 		    }
+		    return "No";
 		}
 };
 
