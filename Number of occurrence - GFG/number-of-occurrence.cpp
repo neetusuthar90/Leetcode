@@ -13,13 +13,20 @@ public:
 	int count(int arr[], int n, int x) {
 	    // code here
 	    int count = 0;
-	    int i = 0;
-	    while(i < n){
-	        while(arr[i]==x){
-	            count++;
-	            i++;
+	    int low = 0;
+	    int high = n-1;
+	    while(low <= high){
+	        if(arr[low] != x){
+	            low++;
 	        }
-	        i++;
+	        if(arr[high] != x){
+	            high--;
+	        }
+	        if(arr[low]==x && arr[high]==x){
+	            count += high-low+1;
+	            break;
+	        }
+	        
 	    }
 	    return count;
 	}
