@@ -17,13 +17,21 @@ class Solution
        // Your code here
        int maxElem = INT_MIN;
        int idx = 0;
-       for(int i = 0; i < n; i++){
-           if(arr[i] > maxElem){
-               maxElem = arr[i];
-               idx = i;
+       
+       int low = 0;
+       int high = n-1;
+       
+       while(low < high){
+           int mid = low + (high-low)/2;
+           
+           if(arr[mid] < arr[mid+1]){
+               low = mid+1;
+           }else{
+               high = mid;
            }
        }
-       return idx;
+       
+       return low;
     }
 };
 
