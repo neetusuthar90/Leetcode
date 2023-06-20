@@ -13,15 +13,14 @@ public:
         int temp = k;
         long sum = 0;
         cout << n;
-        while(j < n && temp < n-k){
+        while(j < n){
             sum += nums[j];
-            while(j-i+1 > (2*k+1)){
+            if(j-i+1 > (2*k+1)){
                 sum -= nums[i];
                 i++;
             }
             if(j-i+1 == (2*k+1)){
-                ans[temp] = sum/(2*k+1);
-                temp++;
+                ans[j-k] = sum/(2*k+1);
             }
             j++;
         }
