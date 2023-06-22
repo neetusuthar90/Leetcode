@@ -6,15 +6,15 @@ public:
         }
 
         int n = s.length();
-        int count1[26] = {0}, count2[26] = {0};
+        int count[26] = {0};
 
         for(int i = 0; i < n; i++){
-            count1[s[i]-'a']++;
-            count2[t[i]-'a']++;
+            count[s[i]-'a']++;
+            count[t[i]-'a']--;
         }
 
         for(int i = 0; i < 26; i++){
-            if(count1[i] != count2[i]){
+            if(count[i] != 0){
                 return false;
             }
         }
