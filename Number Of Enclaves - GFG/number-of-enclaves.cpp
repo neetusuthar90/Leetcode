@@ -10,23 +10,33 @@ using namespace std;
 
 class Solution {
   public:
-    void dfs(int x, int y, vector<vector<int>> &grid , vector<vector<int>> &vis){
+    void bfs(int x, int y, vector<vector<int>> &grid , vector<vector<int>> &vis){
         int n = grid.size();
         int m = grid[0].size();
         
+        queue<pair<int,int>> q;
+        q.push({x,y});
         vis[x][y] = 1; 
         
         int dx[] = {0,1,0,-1};
         int dy[] = {1,0,-1,0};
-        
-        for(int i = 0; i < 4; i++){
-            int nx = x + dx[i];
-            int ny = y + dy[i];
+        while(!q.empty()){
+            x = q.front().first;
+            y = q.front().second;
+            q.pop();
             
-            if(nx >= 0 && ny >= 0 && nx < n && ny < m && !vis[nx][ny] && grid[nx][ny] == 1){
-                dfs(nx,ny,grid,vis);
+            for(int i = 0; i < 4; i++){
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+            
+                if(nx >= 0 && ny >= 0 && nx < n && ny < m && !vis[nx][ny] && grid[nx][ny] == 1){
+                    vis[nx][ny] = 1;
+                    q.push({nx,ny});
+                }
             }
+            
         }
+        
     }
     
     int numberOfEnclaves(vector<vector<int>> &grid) {
@@ -38,19 +48,19 @@ class Solution {
         
         for(int j = 0; j < m; j++){
             if(grid[0][j] == 1 && !vis[0][j]){
-                dfs(0,j,grid,vis);
+                bfs(0,j,grid,vis);
             }
             if(grid[n-1][j] == 1 && !vis[n-1][j]){
-                dfs(n-1,j,grid,vis);
+                bfs(n-1,j,grid,vis);
             }
         }
         
         for(int i = 0; i < n; i++){
             if(grid[i][0] == 1 && !vis[i][0]){
-                dfs(i,0,grid,vis);
+                bfs(i,0,grid,vis);
             }
             if(grid[i][m-1] == 1 && !vis[i][m-1]){
-                dfs(i,m-1,grid,vis);
+                bfs(i,m-1,grid,vis);
             }
         }
         
