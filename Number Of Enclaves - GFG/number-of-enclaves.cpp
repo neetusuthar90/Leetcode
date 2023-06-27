@@ -8,6 +8,7 @@ using namespace std;
 // } Driver Code Ends
 // User function Template for C++
 
+// BFS 
 class Solution {
   public:
     void bfs(int x, int y, vector<vector<int>> &grid , vector<vector<int>> &vis){
