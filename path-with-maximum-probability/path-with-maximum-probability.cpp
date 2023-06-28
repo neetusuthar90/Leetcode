@@ -16,7 +16,7 @@ public:
 
         priority_queue<pair<double, int>> pq;
 
-        //dist[start] = 1.0;
+        dist[start] = 1.0;
 
         pq.push({1.0, start});
 
