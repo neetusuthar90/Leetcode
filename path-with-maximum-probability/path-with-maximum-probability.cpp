@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // Dikjstra's Algo #BFS #Priority Queue
     double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
         vector<pair<int, double>> adj[n];
 
@@ -19,12 +20,16 @@ public:
         dist[start] = 1.0;
 
         pq.push({1.0, start});
+        double ans = 0;
 
         while(!pq.empty()){
             int node = pq.top().second;
             double prob  = pq.top().first;
             
             pq.pop();
+            if(node == end){
+                ans = max(ans, prob);
+            }
 
             for(auto nbr:adj[node]){
                 int newNode = nbr.first;
@@ -37,7 +42,7 @@ public:
             }
         }
 
-        return dist[end];
-
+        //return dist[end];
+        return ans;
     }
 };
