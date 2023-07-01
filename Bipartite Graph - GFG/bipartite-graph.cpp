@@ -5,8 +5,8 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
+
     bool dfs(int node, int c, vector<int> adj[], vector<int> &color){
-        // Mark visited or color the node
         color[node] = c;
         
         for(auto it:adj[node]){
@@ -15,19 +15,16 @@ public:
                     return false;
                 }
             }
-            else if(color[it] == c){
-                // Color of adj node is same
+            else if(color[node] == color[it]){
                 return false;
             }
         }
         
         return true;
     }
-    
 	bool isBipartite(int V, vector<int>adj[]){
 	    // Code here
-	    vector<int> color(V,-1); //Just like visited array and keep track of color
-	    
+	    vector<int> color(V,-1);
 	    for(int i = 0; i < V; i++){
 	        if(color[i] == -1){
 	            if(dfs(i,0,adj,color) == false){
