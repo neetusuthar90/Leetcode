@@ -9,19 +9,30 @@ using namespace std;
 
 class Solution{
 public:
-
+    typedef pair<int,int> Pair;
+    
     vector<int> replaceWithRank(vector<int> &arr, int N){
-        set<int> st(arr.begin(), arr.end());
+        
+        priority_queue<Pair,vector<Pair>,greater<Pair>> pq;
         unordered_map<int,int> mp;
         
-        int rank = 1;
-        for(auto it:st){
-            mp[it] = rank;
-            rank++;
+        for(int i = 0; i < N; i++){
+            pq.push({arr[i],i});
         }
         
-        for(auto &el:arr){
-            el = mp[el];
+        int rank = 1;
+        int prev = pq.top().first;
+        
+        while(!pq.empty()){
+            if(prev != pq.top().first){
+                rank++;
+            }
+            
+            prev = pq.top().first;
+            int idx = pq.top().second;
+            
+            pq.pop();
+            arr[idx] = rank;
         }
         
         return arr;
