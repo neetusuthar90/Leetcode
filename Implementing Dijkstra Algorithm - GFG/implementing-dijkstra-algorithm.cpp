@@ -8,6 +8,7 @@ class Solution
 	public:
 	//Function to find the shortest distance of all the vertices
     //from the source vertex S.
+    // Using set
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         set<pair<int,int>> st;
