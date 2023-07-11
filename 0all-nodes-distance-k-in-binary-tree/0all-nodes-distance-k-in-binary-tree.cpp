@@ -9,61 +9,70 @@
  */
 class Solution {
 public:
-    void parentNodes(TreeNode* root, unordered_map<TreeNode*, TreeNode*> &parent){
+    void getParents(TreeNode* root,unordered_map<TreeNode*, TreeNode*> &parent){
+        if(root == NULL){
+            return;
+        }
+
+        parent[root] = NULL;
         queue<TreeNode*> q;
         q.push(root);
-        parent[root] = NULL;
 
         while(!q.empty()){
             int size = q.size();
             while(size--){
-                root = q.front();
+                TreeNode* node = q.front();
                 q.pop();
-                if(root->left){
-                    q.push(root->left);
-                    parent[root->left] = root;
+
+                if(node->left){
+                    q.push(node->left);
+                    parent[node->left] = node;
                 }
-                if(root->right){
-                    q.push(root->right);
-                    parent[root->right] = root;
+
+                if(node->right){
+                    q.push(node->right);
+                    parent[node->right] = node;
                 }
             }
         }
     }
-    vector<int> distanceK(TreeNode* root, TreeNode* tar, int k) {
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
         unordered_map<TreeNode*, TreeNode*> parent;
-        parentNodes(root, parent);
+        getParents(root, parent);
+
         unordered_map<TreeNode*, bool> visited;
 
-        
-        queue<TreeNode*> q;
-        q.push(tar);
+        queue<TreeNode*> todo;
+        todo.push(target);
 
-        while(!q.empty() && k--){
-            int size = q.size();
+        while(!todo.empty() && k--){
+            int size = todo.size();
             while(size--){
-                TreeNode* temp = q.front();
-                q.pop();
+                TreeNode* temp = todo.front();
+                todo.pop();
+
                 if(parent[temp] && !visited[parent[temp]]){
-                    q.push(parent[temp]);
+                    todo.push(parent[temp]);
                 }
+
                 if(temp->left && !visited[temp->left]){
-                    q.push(temp->left);
+                    todo.push(temp->left);
                 }
+
                 if(temp->right && !visited[temp->right]){
-                    q.push(temp->right);
+                    todo.push(temp->right);
                 }
-                
+
                 visited[temp] = true;
             }
         }
 
         vector<int> ans;
-        while(!q.empty()){
-            ans.push_back(q.front()->val);
-            q.pop();
-        }
 
+        while(!todo.empty()){
+            ans.push_back(todo.front()->val);
+            todo.pop();
+        }
         return ans;
     }
 };
