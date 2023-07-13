@@ -1,33 +1,64 @@
-class Solution {
+class DisjointSet{
 public:
-    void dfs(unordered_map<int,list<int>> &adj,vector<int> &vis, int node){
-        vis[node] = 1;
-        for(auto nbd:adj[node]){
-            if(vis[nbd] == 0){
-                vis[nbd] = 1;
-                dfs(adj,vis,nbd);
-            }
+    vector<int> rank, parent;
+public:
+    DisjointSet(int n){
+        rank.resize(n,0);
+        parent.resize(n,0);
+        for(int i = 0; i < n; i++){
+            parent[i] = i;
         }
     }
+
+    int findPar(int node){
+        if(node == parent[node]){
+            return node;
+        }
+        return parent[node] = findPar(parent[node]);
+    }
+
+    void unionbyRank(int u, int v){
+        int pu = findPar(u);
+        int pv = findPar(v);
+
+        if(rank[pu] > rank[pv]){
+            parent[pv] = pu;
+        }
+        else if(rank[pv] > rank[pu]){
+            parent[pu] = pv;
+        }
+        else{
+            parent[pv] = pu;
+            rank[pu]++; 
+        }
+    }
+};
+
+class Solution {
+public:
     int makeConnected(int n, vector<vector<int>>& connections) {
-        if(connections.size() < (n-1)){
-            return -1;
-        }
-        unordered_map<int,list<int>> adj;
-        for(int i = 0; i < connections.size(); i++){
-            int u = connections[i][0];
-            int v = connections[i][1];
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-        }
-        vector<int> vis(n,0);
-        int count = 0;
-        for(int v = 0; v < n; v++){
-            if(vis[v] == 0){
-                dfs(adj,vis,v);
-                count++;
+        DisjointSet ds(n);
+        int countExtra = 0;
+        for(auto edge:connections){
+            int u = edge[0];
+            int v = edge[1];
+
+            if(ds.findPar(u) == ds.findPar(v)){
+                countExtra++;
+            }else{
+                ds.unionbyRank(u,v);
             }
         }
-        return count-1;
+
+        int countComp = 0;
+        for(int i = 0; i < n; i++){
+            if(ds.parent[i] == i){
+                countComp++;
+            }
+        }
+
+        int ans = countComp-1;
+        if(countExtra >= ans) return ans;
+        return -1;
     }
 };
