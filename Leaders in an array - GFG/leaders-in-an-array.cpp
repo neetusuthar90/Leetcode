@@ -11,26 +11,21 @@ using namespace std;
 class Solution{
     //Function to find the leaders in the array.
     public:
-    vector<int> leaders(int arr[], int n){
-        // Code here
-        vector<int> ans;
-
-        for(int i = 0; i < n; i++){
-            bool flag = true;
-            for(int j = i+1; j < n; j++){
-                if(arr[i] >= arr[j]){
-                    continue;
-                }
-                else{
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag){
-                ans.push_back(arr[i]);
-            }
-        }
-        return ans;
+    vector<int> leaders(int a[], int n){
+       vector<int> ans;
+       int maxi = a[n-1];
+       ans.push_back(a[n-1]);
+       
+       for(int i = n-2; i >= 0; i--){
+           if(a[i] >= maxi){
+               ans.push_back(a[i]);
+               maxi = a[i];
+           }
+       }
+       sort(ans.begin(), ans.end(),[&](int &a, int &b){
+           return a > b;
+       });
+       return ans;
     }
 };
 
